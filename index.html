@@ -20,6 +20,7 @@
             --gray: #6c757d;
             --gradient: linear-gradient(135deg, #4361ee, #7209b7);
             --gradient-light: linear-gradient(135deg, #4cc9f0, #4361ee);
+            --gradient-dark: linear-gradient(135deg, #3a0ca3, #4361ee);
             --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.15);
             --radius: 16px;
@@ -34,7 +35,7 @@
         }
 
         body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            background: white; /* خلفية بيضاء لكامل الصفحة */
             color: var(--dark);
             line-height: 1.6;
             min-height: 100vh;
@@ -48,14 +49,16 @@
             padding: 20px;
         }
 
-        /* Header Styles */
+        /* Header Styles - IMPROVED */
         header {
-            background: var(--gradient);
+            background: var(--gradient-dark);
             color: white;
-            padding: 20px 0;
-            box-shadow: var(--shadow);
+            padding: 15px 0;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             position: relative;
             overflow: hidden;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         header::before {
@@ -95,12 +98,14 @@
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
         .logo-text h1 {
             font-size: 1.8rem;
             font-weight: 800;
             margin-bottom: 5px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .logo-text p {
@@ -108,21 +113,30 @@
             opacity: 0.9;
         }
 
+        /* IMPROVED NAVIGATION - PROFESSIONAL BUTTONS */
         nav ul {
             display: flex;
             list-style: none;
-            gap: 20px;
+            gap: 15px;
         }
 
         nav a {
             color: white;
             text-decoration: none;
-            font-weight: 500;
-            padding: 10px 20px;
+            font-weight: 600;
+            padding: 14px 28px;
             border-radius: 50px;
             transition: var(--transition);
             position: relative;
             overflow: hidden;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
         nav a::before {
@@ -132,42 +146,56 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(255, 255, 255, 0.1);
+            background: var(--gradient);
             transform: translateX(-100%);
-            transition: transform 0.3s ease;
+            transition: transform 0.4s ease;
+            z-index: -1;
+            border-radius: 50px;
         }
 
-        nav a:hover::before {
-            transform: translateX(0);
-        }
-
-        nav a:hover, nav a.active {
-            background: rgba(255, 255, 255, 0.15);
-            transform: translateY(-2px);
-        }
-
-        /* Hero Section */
-        .hero {
-            padding: 100px 0;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
+        nav a::after {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%234361ee' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-            animation: backgroundMove 20s infinite linear;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: 50px;
         }
 
-        @keyframes backgroundMove {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(100px, 100px); }
+        nav a:hover::before, nav a.active::before {
+            transform: translateX(0);
+        }
+
+        nav a:hover::after {
+            opacity: 1;
+        }
+
+        nav a:hover, nav a.active {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        nav a i {
+            font-size: 1.1rem;
+            transition: transform 0.3s ease;
+        }
+
+        nav a:hover i {
+            transform: scale(1.2);
+        }
+
+        /* Hero Section - WHITE BACKGROUND */
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            background: white;
         }
 
         .hero-content {
@@ -178,12 +206,10 @@
         }
 
         .hero h2 {
-            font-size: 3.5rem;
+            font-size: 3rem;
             font-weight: 800;
             margin-bottom: 20px;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--primary);
             animation: fadeInUp 1s ease 0.2s both;
         }
 
@@ -194,7 +220,7 @@
             animation: fadeInUp 1s ease 0.4s both;
         }
 
-        /* Search Section */
+        /* Search Section - WHITE BACKGROUND */
         .search-section {
             background: white;
             padding: 40px;
@@ -206,6 +232,7 @@
             position: relative;
             overflow: hidden;
             transition: var(--transition);
+            border: 1px solid #e9ecef;
         }
 
         .search-section::before {
@@ -267,6 +294,7 @@
             box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.1);
         }
 
+        /* IMPROVED BUTTONS */
         .btn {
             padding: 15px 30px;
             background: var(--gradient);
@@ -283,6 +311,7 @@
             gap: 10px;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
         }
 
         .btn::before {
@@ -302,7 +331,7 @@
 
         .btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(67, 97, 238, 0.3);
+            box-shadow: 0 10px 25px rgba(67, 97, 238, 0.4);
         }
 
         .btn-secondary {
@@ -972,6 +1001,12 @@
             nav ul {
                 flex-wrap: wrap;
                 justify-content: center;
+                gap: 10px;
+            }
+            
+            nav a {
+                padding: 10px 18px;
+                font-size: 0.9rem;
             }
             
             .hero h2 {
@@ -1017,18 +1052,22 @@
             <div class="header-content">
                 <div class="logo">
                     <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi201Tw7yUFj8r74gTtygCWXD7685LR2C8yrx3osHYPBRH_28p85yq7GS3VZUMkVVoyv7mT9NuMZDIlDAQo7XFJRjRLMl4thzdO_Gdkpkz7kS_z2kEjpURj2-QrISs6sKBpdlRCcMiuBPriE0ndYz9dw-umnYe1v7MmzJTkyoJZRxEfYkHUYd4z-KBNqWJo/s1600/21634.jpg" alt="شعار الكلية" class="logo-img">
-                    <div class="logo-text">
-                        <h2>كلية الخدمة الاجتماعية</h2>
-                        <p>نظام عرض نتائج الطلاب</p>
+                    <div class="logo">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgU0dR9_BsptPFMnvfE9Dk_AKwuDhj4jXo6njOxfcyypaNyy95uh4RwWQJ7NSyaMqyItHMwBDRAM2FnW3CheLc990IUXD828VT4MPeklHcgMLEs69Hi2-n0NfcXhY8tyxStCCUBN8KKllpRXCxo2kZ7wkgxY7mApMXBEYs8vWX6CaYh1DcQPUDBuS1dicJT/s604/21698.jpg" alt="شعار الكلية" class="logo-img">
                     </div>
                 </div>
+                
+                <div>
+                    <h2 style="color: white; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">كلية الخدمة الاجتماعية</h2>
+                </div>
+                
+                <!-- NAVIGATION BUTTONS - IMPROVED AND PROFESSIONAL -->
                 <nav>
                     <ul>
-                        <li><a href="https://social-service-1.github.io/about-" class="active" id="nav-home">عن الكلية</a></li>
-                        <li><a href="https://maps.app.goo.gl/59qoRAcG6b5EEhqY9" id="nav-about">موقع الكلية</a></li>
-
-                        <li><a href="https://social-service-1.github.io/Video" id="nav-about">المحاضرات فيديو </a></li>
-                        
+                        <li><a href="https://social-service-1.github.io/about-" class="active" id="nav-home"><i class="fas fa-university"></i> عن الكلية</a></li>
+                        <li><a href="https://maps.app.goo.gl/59qoRAcG6b5EEhqY9" id="nav-about"><i class="fas fa-map-marker-alt"></i> موقع الكلية</a></li>
+                        <li><a href="https://social-service-1.github.io/Dr/" id="nav-about"><i class="fas fa-user"></i>فريق هيئة التدريس</a></li>
+                        <li><a href="https://social-service-1.github.io/Video" id="nav-about"><i class="fas fa-video"></i> المحاضرات فيديو</a></li>
                     </ul>
                 </nav>
             </div>
@@ -1038,16 +1077,11 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
-            
-                   
             <div class="hero-content">
-                <div class="logo">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgU0dR9_BsptPFMnvfE9Dk_AKwuDhj4jXo6njOxfcyypaNyy95uh4RwWQJ7NSyaMqyItHMwBDRAM2FnW3CheLc990IUXD828VT4MPeklHcgMLEs69Hi2-n0NfcXhY8tyxStCCUBN8KKllpRXCxo2kZ7wkgxY7mApMXBEYs8vWX6CaYh1DcQPUDBuS1dicJT/s604/21698.jpg" alt="شعار الكلية" class="logo-img">
-                
                 <h2>مرحباً بكم في كلية الخدمة الاجتماعية</h2>
-                <p>نظام متكامل لعرض النتائج والإشعارات والموارد التعليمية</p>
+                <p>نظام النتائج الإلكتروني - ابحث عن نتيجتك بسهولة وأمان</p>
                 
-                <!-- Search Section -->
+                <!-- Search Section - WHITE BACKGROUND -->
                 <div class="search-section" id="search-section">
                     <h3>ابحث عن نتائجك</h3>
                     <form class="search-form" id="search-form">
@@ -1067,8 +1101,7 @@
                         </button>
                     </form>
                 </div>
-            
-        </div>
+            </div>
         </div>
     </section>
 
@@ -1186,13 +1219,12 @@
         </div>
 
         <form id="login-form">
-            
-            
+            <!-- Login form will be added here if needed -->
         </form>
     </div>
 
     <!-- Footer -->
-    
+   
 
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
